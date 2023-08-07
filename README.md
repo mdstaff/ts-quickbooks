@@ -2,9 +2,10 @@
 
 An easy way to interact with the QuickBooks API in your NestJS applications.
 
-## Features
+## Available Modules
+
 - Authorization workflow
-- Company's info
+- Company Info
 - Items
 - Invoices
 - Payments
@@ -13,35 +14,28 @@ An easy way to interact with the QuickBooks API in your NestJS applications.
 
 ## Getting started
 
-### Install
-
-```
-npm i --save @recursyve/nestjs-quickbooks
-```
-
 ### Import
 
-```ts
-import { QuickBooksModule, QuickBooksScopes } from "@recursyve/nestjs-quickbooks";
+@todo
 
-@Module({
-    imports: [
-        QuickBooksModule.forRoot({
-            config: {
-                mode: "sandbox",
-                clientId: "clientId",
-                clientSecret: "clientSecret",
-                scopes: [QuickBooksScopes.Accounting],
-                serverUri: "http://localhost:3000",
-                redirection: {
-                    successUrl: "http://localhost:3000/success",
-                    errorUrl: "http://localhost:3000/error"
-                }
-            }
-        })
-    ]
-})
-export class AppModule {}
+```ts
+import { QuickBooksModule, QuickBooksScopes } from "@ts-quickbooks";
+
+@TODO(
+    QuickBooksModule.forRoot({
+        config: {
+        mode: "sandbox",
+        clientId: "clientId",
+        clientSecret: "clientSecret",
+        scopes: [QuickBooksScopes.Accounting],
+        serverUri: "http://localhost:3000",
+        redirection: {
+            successUrl: "http://localhost:3000/success",
+            errorUrl: "http://localhost:3000/error",
+        },
+        },
+    })
+)
 ```
 
 ### Configuration
@@ -49,7 +43,7 @@ export class AppModule {}
 You can set the config in the QuicksBooksModule forRoot function. You can also set the configuration with environment variable.
 
 | **configuration**      | **Environment variable**    | **Definition**                              |
-|------------------------|-----------------------------|---------------------------------------------|
+| ---------------------- | --------------------------- | ------------------------------------------- |
 | mode                   | QUICKBOOKS_MODE             | QuickBooks mode (sandbox or production)     |
 | clientId               | QUICKBOOKS_CLIENT_ID        | Your Quickbooks application client id       |
 | clientSecret           | QUICKBOOKS_CLIENT_SECRET    | Your Quickbooks application client secret   |
@@ -67,22 +61,6 @@ The Authorization workflow is embedded in the library. Two routes are provided.
 
 ### Authorization tokens store
 
-The result of an authorization is stored in the QuickBooksStore. By default the LocalStore is used, which means that the tokens and realm are saved localy.
-
-You can override the QuickBooksStore with your own Store implementation.
-```ts
-import { QuickBooksModule, QuickBooksStore } from "@recursyve/nestjs-quickbooks";
-
-@Module({
-    imports: [
-        QuickBooksModule.forRoot({
-            imports: [MyStoreImplementationModule],
-            store: {
-                provide: QuickBooksStore,
-                useClass: MyStoreImplementation
-            }
-        })
-    ]
-})
-export class AppModule {}
-```
+@TODO
+Store the result of an authorization request.
+By default the LocalStore is used, which means that the tokens and realm are saved localy.

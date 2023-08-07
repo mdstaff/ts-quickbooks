@@ -1,11 +1,10 @@
 {
-    "name": "@recursyve/nestjs-quickbooks",
+    "name": "ts-quickbooks",
     "version": "9.0.0-beta.25",
     "keywords": [
-        "nestjs",
         "quickbooks"
     ],
-    "description": "An easy way to interact with the QuickBooks API in your NestJS applications.",
+    "description": "An easy way to interact with the QuickBooks API in NodeJS applications.",
     "main": "index.js",
     "scripts": {
         "build": "rimraf dist && nest build",
@@ -31,21 +30,13 @@
     },
     "dependencies": {
         "form-data": "^4.0.0",
-        "intuit-oauth": "^4.0.0"
+        "openid-client": "^5.4.3",
+        "ts-custom-error": "^3.3.1"
     },
     "peerDependencies": {
-        "@nestjs/axios": ">=1.0.0",
-        "@nestjs/common": ">=9.0.0",
-        "@nestjs/core": ">=9.0.0",
         "rxjs": ">=7.0.0"
     },
     "devDependencies": {
-        "@nestjs/axios": "^1.0.1",
-        "@nestjs/cli": "^9.1.8",
-        "@nestjs/common": "^9.2.1",
-        "@nestjs/core": "^9.2.1",
-        "@nestjs/platform-express": "^9.2.1",
-        "@recursyve/nestjs-redis": "^9.0.3",
         "@types/jest": "^29.2.5",
         "@types/node": "^18.11.18",
         "dotenv": "^16.0.3",

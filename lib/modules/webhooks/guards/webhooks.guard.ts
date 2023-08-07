@@ -1,30 +1,39 @@
-import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import * as crypto from "crypto";
-import { GLOBAL_CONFIG } from "../../../constants";
-import { QuickBooksConfigModel } from "../../config";
+import { CustomError } from "ts-custom-error";
 
-@Injectable()
-export class QuickBooksWebhooksGuard implements CanActivate {
-    constructor(@Inject(GLOBAL_CONFIG) public readonly global: QuickBooksConfigModel) {}
+class UnauthorizedException extends CustomError {
+  public code = 401;
+  public constructor(message?: string) {
+    super(message);
+  }
+}
+/**
+ * @todo implement global config on class object
+ */
+export class QuickBooksWebhooksGuard {
+  private config: any;
 
-    public async canActivate(context: ExecutionContext): Promise<boolean>  {
-        const req = context.switchToHttp().getRequest();
+  public async canActivate(context: any): Promise<boolean> {
+    const req = context.switchToHttp().getRequest();
 
-        const signature = req.get("intuit-signature");
-        if (!signature) {
-            throw new UnauthorizedException();
-        }
-
-        const webhookPayload = JSON.stringify(req.body);
-        if (!webhookPayload) {
-            return true;
-        }
-
-        const hash = crypto.createHmac("sha256", this.global.webhookVerifier).update(webhookPayload).digest("base64");
-        if (signature !== hash) {
-            throw new UnauthorizedException();
-        }
-
-        return true;
+    const signature = req.get("intuit-signature");
+    if (!signature) {
+      throw new UnauthorizedException();
     }
+
+    const webhookPayload = JSON.stringify(req.body);
+    if (!webhookPayload) {
+      return true;
+    }
+
+    const hash = crypto
+      .createHmac("sha256", this.config.webhookVerifier)
+      .update(webhookPayload)
+      .digest("base64");
+    if (signature !== hash) {
+      throw new UnauthorizedException();
+    }
+
+    return true;
+  }
 }
